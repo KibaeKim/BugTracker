@@ -1,0 +1,80 @@
+<div *ngIf="bug">
+  <!-- Card -->
+  <div class="card">
+    <!-- Card Header -->
+    <div class="card-header d-flex align-items-center">
+      <h3>{{ bug.title }}</h3>
+      <div class="ms-auto">
+        {{ bug.created.toDateString() }}
+      </div>
+      <button
+        class="ms-2 btn btn-primary"
+        (click)="onEditClick()"
+        *ngIf="!isEditState"
+      >
+        Edit
+      </button>
+      <button class="btn btn-danger ms-2" (click)="delete()">Delete</button>
+    </div>
+    <!-- /Card Header -->
+
+    <!-- Card Body -->
+    <div>
+      <div class="card-body" *ngIf="!isEditState">
+        <div class="d-flex d-row">
+          <div class="badge" id="bug-{{ bug.id }}-status">
+            {{ bug.status }}
+          </div>
+          <div class="badge ms-2" id="bug-{{ bug.id }}-severity">
+            {{ bug.severity }} priority
+          </div>
+        </div>
+        <p>{{ bug.description }}</p>
+      </div>
+
+      <!-- Edit State -->
+      <div class="card-body" *ngIf="isEditState">
+        <!-- Title input edit -->
+        <div class="mb-3">
+          <label for="bug-title-{{ bug.id }}" class="form-label"
+            >Bug title</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            value="{{ bug.title }}"
+            [formControl]="titleControl"
+            id="bug-title-{{ bug.id }}"
+          />
+        </div>
+
+        <!-- Description input edit -->
+        <div class="mb-3">
+          <label for="bug-description-{{ bug.id }}" class="form-label"
+            >Bug description (optional)</label
+          >
+          <textarea
+            class="form-control"
+            id="bug-description-{{ bug.id }}"
+            value="{{ bug.description }}"
+            [formControl]="descriptionControl"
+            rows="3"
+          ></textarea>
+        </div>
+
+        <!-- Cancel/Submit buttons -->
+        <div class="mb-3 d-flex">
+          <button class="btn btn-secondary ms-auto" (click)="onCancelClick()">
+            Cancel
+          </button>
+          <button class="btn btn-success ms-2" (click)="onEditSubmit()">
+            Update
+          </button>
+        </div>
+      </div>
+      <!-- /Edit State -->
+    </div>
+    <!-- /Card Body -->
+  </div>
+  <!-- /Card -->
+</div>
