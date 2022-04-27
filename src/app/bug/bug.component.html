@@ -14,67 +14,132 @@
       >
         Edit
       </button>
+      <button
+        class="ms-2 btn btn-secondary"
+        (click)="onCancelClick()"
+        *ngIf="isEditState"
+      >
+        Cancel
+      </button>
       <button class="btn btn-danger ms-2" (click)="delete()">Delete</button>
     </div>
     <!-- /Card Header -->
 
-    <!-- Card Body -->
-    <div>
-      <div class="card-body" *ngIf="!isEditState">
-        <div class="d-flex d-row">
-          <div class="badge" id="bug-{{ bug.id }}-status">
-            {{ bug.status }}
-          </div>
-          <div class="badge ms-2" id="bug-{{ bug.id }}-severity">
-            {{ bug.severity }} priority
-          </div>
+    <!-- !Edit State -->
+    <div class="card-body" *ngIf="!isEditState">
+      <div class="d-flex d-row">
+        <div class="badge" id="bug-{{ bug.id }}-status">
+          {{ bug.status }}
         </div>
-        <p>{{ bug.description }}</p>
-      </div>
-
-      <!-- Edit State -->
-      <div class="card-body" *ngIf="isEditState">
-        <!-- Title input edit -->
-        <div class="mb-3">
-          <label for="bug-title-{{ bug.id }}" class="form-label"
-            >Bug title</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            value="{{ bug.title }}"
-            [formControl]="titleControl"
-            id="bug-title-{{ bug.id }}"
-          />
-        </div>
-
-        <!-- Description input edit -->
-        <div class="mb-3">
-          <label for="bug-description-{{ bug.id }}" class="form-label"
-            >Bug description (optional)</label
-          >
-          <textarea
-            class="form-control"
-            id="bug-description-{{ bug.id }}"
-            value="{{ bug.description }}"
-            [formControl]="descriptionControl"
-            rows="3"
-          ></textarea>
-        </div>
-
-        <!-- Cancel/Submit buttons -->
-        <div class="mb-3 d-flex">
-          <button class="btn btn-secondary ms-auto" (click)="onCancelClick()">
-            Cancel
-          </button>
-          <button class="btn btn-success ms-2" (click)="onEditSubmit()">
-            Update
-          </button>
+        <div class="badge ms-2" id="bug-{{ bug.id }}-severity">
+          {{ bug.severity }} priority
         </div>
       </div>
-      <!-- /Edit State -->
+      <p>{{ bug.description }}</p>
     </div>
-    <!-- /Card Body -->
+    <!-- /!Edit State -->
+
+    <!-- Edit State -->
+    <div class="card-body" *ngIf="isEditState">
+      <!-- Edit Status -->
+      <div class="mb-3">
+        <label for="bug-status-{{ bug.id }}">Status</label>
+        <div id="bug-status-{{ bug.id }}">
+          <div
+            class="badge bg-light text-dark border"
+            role="button"
+            (click)="setStatus('open', $event)"
+            id="open-status-{{ bug.id }}"
+          >
+            Open
+          </div>
+          <div
+            class="ms-2 badge bg-light text-dark border"
+            role="button"
+            (click)="setStatus('in-progress', $event)"
+            id="in-progress-status-{{ bug.id }}"
+          >
+            In Progress
+          </div>
+          <div
+            class="ms-2 badge bg-light text-dark border"
+            role="button"
+            (click)="setStatus('done', $event)"
+            id="done-status-{{ bug.id }}"
+          >
+            Done
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Priority -->
+      <div class="mb-3">
+        <label for="bug-priority-{{ bug.id }}">Priority</label>
+        <div id="bug-priority-{{ bug.id }}">
+          <div
+            class="badge bg-light text-dark border"
+            role="button"
+            (click)="setSeverity('low', $event)"
+            id="low-priority-{{ bug.id }}"
+          >
+            Low
+          </div>
+          <div
+            class="ms-2 badge bg-light text-dark border"
+            role="button"
+            (click)="setSeverity('medium', $event)"
+            id="medium-priority-{{ bug.id }}"
+          >
+            Medium
+          </div>
+          <div
+            class="ms-2 badge bg-light text-dark border"
+            role="button"
+            (click)="setSeverity('high', $event)"
+            id="high-priority-{{ bug.id }}"
+          >
+            High
+          </div>
+        </div>
+      </div>
+
+      <!-- Title input edit -->
+      <div class="mb-3">
+        <label for="bug-title-{{ bug.id }}" class="form-label">Bug title</label>
+        <input
+          type="text"
+          class="form-control"
+          value="{{ bug.title }}"
+          [formControl]="titleControl"
+          id="bug-title-{{ bug.id }}"
+        />
+      </div>
+
+      <!-- Description input edit -->
+      <div class="mb-3">
+        <label for="bug-description-{{ bug.id }}" class="form-label"
+          >Bug description (optional)</label
+        >
+        <textarea
+          class="form-control"
+          id="bug-description-{{ bug.id }}"
+          value="{{ bug.description }}"
+          [formControl]="descriptionControl"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <!-- Cancel/Submit buttons -->
+      <div class="mb-3 d-flex">
+        <button class="btn btn-secondary ms-auto" (click)="onCancelClick()">
+          Cancel
+        </button>
+        <button class="btn btn-success ms-2" (click)="onEditSubmit()">
+          Update
+        </button>
+      </div>
+    </div>
+    <!-- /Edit State -->
   </div>
   <!-- /Card -->
 </div>

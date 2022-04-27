@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { API } from 'aws-amplify';
 import { BugType } from 'src/types/bug.type';
 
 @Component({
@@ -24,9 +25,13 @@ export class BugComponent implements OnInit {
   isEditState: boolean = false;
   titleControl: FormControl = new FormControl(this.bug?.title || "")
   descriptionControl: FormControl = new FormControl(this.bug?.description || '');
+  severity: 'low' | 'medium' | 'high' = this.bug?.severity || 'low';
+  status: 'open' | 'in-progress' | 'done' = this.bug?.status || 'open';
 
 
   @Output() onDelete = new EventEmitter<any>();
+
+
 
   setCss() {
     const fn = () => {
@@ -52,17 +57,58 @@ export class BugComponent implements OnInit {
 
   onEditClick() {
     this.isEditState = true;
-    console.log(this.titleControl.value);
+
+    const fn = () => {
+      const id1 = `${this.bug?.severity}-priority-${this.bug?.id}`
+      const id2 = `${this.bug?.status}-status-${this.bug?.id}`
+
+      document.getElementById(id1)?.classList.remove("bg-light", "text-dark")
+      document.getElementById(id1)?.classList.add(`${this.bug?.severity}-priority`)
+
+      document.getElementById(id2)?.classList.remove("bg-light", "text-dark")
+      document.getElementById(id2)?.classList.add(`${this.bug?.status}-status`)
+    }
+
+    setTimeout(fn, 1)
+  }
+
+  setSeverity(severity: 'low' | 'medium' | 'high', event: any = "") {
+    // Remove current selected class
+    document.getElementById(`${this.severity}-priority-${this.bug?.id}`)?.classList.remove(`${this.severity}-priority`) // Remove current selected class
+    document.getElementById(`${this.severity}-priority-${this.bug?.id}`)?.classList.add("bg-light", "text-dark") // Set CSS to default
+
+    this.severity = severity;
+
+    // Set CSS colour of selected priority
+    document.getElementById(event.target.id)?.classList.remove("bg-light", "text-dark") // Remove current selected class
+    document.getElementById(event.target.id)?.classList.add(`${this.severity}-priority`) // Set CSS to default
+  }
+
+  setStatus(status: 'open' | 'in-progress' | 'done', event: any = "") {
+    // Remove current selected class
+    document.getElementById(`${this.status}-status-${this.bug?.id}`)?.classList.remove(`${this.status}-status`) // Remove current selected class
+    document.getElementById(`${this.status}-status-${this.bug?.id}`)?.classList.add("bg-light", "text-dark") // Set CSS to default
+
+    this.status = status;
+
+    // Set CSS colour of selected priority
+    document.getElementById(event.target.id)?.classList.remove("bg-light", "text-dark") // Remove current selected class
+    document.getElementById(event.target.id)?.classList.add(`${this.status}-status`) // Set CSS to default
   }
 
   onCancelClick() {
     this.isEditState = false;
-    // console.log(this.bug);
     this.setCss()
   }
 
   onEditSubmit() {
-    console.log(this.titleControl.value);
-
+    API
+      .get('BugsApi', '/bugs', {})
+      .then(data => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 }

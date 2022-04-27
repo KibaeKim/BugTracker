@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/bugs": {
+      "name": "/bugs",
+      "lambdaFunction": "BugTracker",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

@@ -10,6 +10,14 @@
       "StackName": "amplify-bugtracker-dev-152117",
       "StackId": "arn:aws:cloudformation:us-west-2:267457894124:stack/amplify-bugtracker-dev-152117/dd1545d0-c41c-11ec-bd8b-021e5b88a5e5",
       "AmplifyAppId": "dnajrbzwyhc3d"
+    },
+    "categories": {
+      "function": {
+        "BugTracker": {
+          "deploymentBucketName": "amplify-bugtracker-dev-152117-deployment",
+          "s3Key": "amplify-builds/BugTracker-324e526d327075773051-build.zip"
+        }
+      }
     }
   }
 }
