@@ -49,7 +49,7 @@ app.get("/bugs/:id", function (req, res) {
 app.post("/bugs", async function (req, res) {
   const bug = {
     id: generateId(),
-    created: new Date(),
+    created: Date.now(),
     priority: req.body.priority || "low",
     status: req.body.status || "open",
     title: req.body.title,

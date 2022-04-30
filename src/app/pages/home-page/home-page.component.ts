@@ -12,12 +12,16 @@ export class HomePageComponent implements OnInit {
 
   constructor() {
     API.get('BugsApi', '/bugs', {}).then(res => {
-      console.log(res);
       this.bugs = res.data
-      this.bugs.sort((a, z) => {
-        return a.created.getTime() - z.created.getTime()
+      console.log(this.bugs[0]);
+      this.bugs.sort((a: BugType, z: BugType) => {
+        return a.created - z.created
+      })
+      this.bugs.map(bug => {
+        bug.created = new Date(bug.created).toDateString()
       })
     })
+
   }
 
   ngOnInit(): void {

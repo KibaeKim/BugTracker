@@ -3,6 +3,6 @@ export type BugType = {
   title: string;
   status: "open" | "in-progress" | "done";
   priority: "low" | "medium" | "high";
-  created: Date;
+  created: any;
   description: string;
 }
