@@ -5,7 +5,7 @@
     <div class="card-header d-flex align-items-center">
       <h3>{{ bug.title }}</h3>
       <div class="ms-auto">
-        {{ bug.created.toDateString() }}
+        <!-- {{ bug.created.toDateString() }} -->
       </div>
       <button
         class="ms-2 btn btn-primary"
@@ -28,11 +28,15 @@
     <!-- !Edit State -->
     <div class="card-body" *ngIf="!isEditState">
       <div class="d-flex d-row">
-        <div class="badge" id="bug-{{ bug.id }}-status">
+        <div class="text-light badge" id="bug-{{ bug.id }}-status" #status>
           {{ bug.status }}
         </div>
-        <div class="badge ms-2" id="bug-{{ bug.id }}-severity">
-          {{ bug.severity }} priority
+        <div
+          class="text-light badge ms-2"
+          id="bug-{{ bug.id }}-priority"
+          #priority
+        >
+          {{ bug.priority }} priority
         </div>
       </div>
       <p>{{ bug.description }}</p>
@@ -46,26 +50,26 @@
         <label for="bug-status-{{ bug.id }}">Status</label>
         <div id="bug-status-{{ bug.id }}">
           <div
-            class="badge bg-light text-dark border"
+            class="badge border"
             role="button"
-            (click)="setStatus('open', $event)"
-            id="open-status-{{ bug.id }}"
+            (click)="setState('open')"
+            #open
           >
             Open
           </div>
           <div
-            class="ms-2 badge bg-light text-dark border"
+            class="ms-2 badge border"
             role="button"
-            (click)="setStatus('in-progress', $event)"
-            id="in-progress-status-{{ bug.id }}"
+            (click)="setState('in-progress')"
+            #inProgress
           >
             In Progress
           </div>
           <div
-            class="ms-2 badge bg-light text-dark border"
+            class="ms-2 badge border"
             role="button"
-            (click)="setStatus('done', $event)"
-            id="done-status-{{ bug.id }}"
+            (click)="setState('done')"
+            #done
           >
             Done
           </div>
@@ -77,26 +81,26 @@
         <label for="bug-priority-{{ bug.id }}">Priority</label>
         <div id="bug-priority-{{ bug.id }}">
           <div
-            class="badge bg-light text-dark border"
+            class="badge border"
             role="button"
-            (click)="setSeverity('low', $event)"
-            id="low-priority-{{ bug.id }}"
+            (click)="setState('low')"
+            #low
           >
             Low
           </div>
           <div
-            class="ms-2 badge bg-light text-dark border"
+            class="ms-2 badge border"
             role="button"
-            (click)="setSeverity('medium', $event)"
-            id="medium-priority-{{ bug.id }}"
+            (click)="setState('medium')"
+            #medium
           >
             Medium
           </div>
           <div
-            class="ms-2 badge bg-light text-dark border"
+            class="ms-2 badge border"
             role="button"
-            (click)="setSeverity('high', $event)"
-            id="high-priority-{{ bug.id }}"
+            (click)="setState('high')"
+            #high
           >
             High
           </div>

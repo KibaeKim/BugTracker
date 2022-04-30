@@ -1,0 +1,96 @@
+<div class="card">
+  <div class="card-body">
+    <!-- Edit Status -->
+    <div class="mb-3">
+      <label for="bug-status-{{ bug.id }}">Status</label>
+      <div id="bug-status-{{ bug.id }}">
+        <div
+          class="active badge border"
+          role="button"
+          (click)="setState('open')"
+          #open
+        >
+          Open
+        </div>
+        <div
+          class="ms-2 badge border"
+          role="button"
+          (click)="setState('in-progress')"
+          #inProgress
+        >
+          In Progress
+        </div>
+        <div
+          class="ms-2 badge border"
+          role="button"
+          (click)="setState('done')"
+          #done
+        >
+          Done
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Priority -->
+    <div class="mb-3">
+      <label for="bug-priority-{{ bug.id }}">Priority</label>
+      <div id="bug-priority-{{ bug.id }}">
+        <div
+          class="active badge border"
+          role="button"
+          (click)="setState('low')"
+          #low
+        >
+          Low
+        </div>
+        <div
+          class="ms-2 badge border"
+          role="button"
+          (click)="setState('medium')"
+          #medium
+        >
+          Medium
+        </div>
+        <div
+          class="ms-2 badge border"
+          role="button"
+          (click)="setState('high')"
+          #high
+        >
+          High
+        </div>
+      </div>
+    </div>
+
+    <!-- Title input edit -->
+    <div class="mb-3">
+      <label for="bug-title-{{ bug.id }}" class="form-label">Bug title</label>
+      <input
+        type="text"
+        class="form-control"
+        value="{{ bug.title }}"
+        id="bug-title-{{ bug.id }}"
+        [formControl]="titleControl"
+      />
+      <div class="text-danger" *ngIf="errors.title">Title is required</div>
+    </div>
+    <!-- Description input edit -->
+    <div class="mb-3">
+      <label for="bug-description-{{ bug.id }}" class="form-label"
+        >Bug description (optional)</label
+      >
+      <textarea
+        class="form-control"
+        id="bug-description-{{ bug.id }}"
+        value="{{ bug.description }}"
+        rows="3"
+        [formControl]="descriptionControl"
+      ></textarea>
+    </div>
+
+    <!-- Cancel/Submit buttons -->
+    <div class="mb-3 d-flex">
+      <button class="btn btn-success ms-2" (click)="onSubmit()">Submit</button>
+    </div>
+  </div>
+</div>

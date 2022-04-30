@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { API } from 'aws-amplify';
 import { BugType } from 'src/types/bug.type';
 
 @Component({
@@ -7,42 +8,30 @@ import { BugType } from 'src/types/bug.type';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-  dummyData: BugType[] = [
-    {
-      id: "1",
-      title: 'Bug 1',
-      description: 'Bug 1 description',
-      status: 'open',
-      severity: 'low',
-      created: new Date()
-    },
-    {
-      id: "2",
-      title: 'Bug 2',
-      description: 'Bug 2 description',
-      status: 'in-progress',
-      severity: 'medium',
-      created: new Date()
-    },
-    {
-      id: "3",
-      title: 'Bug 3',
-      description: 'Bug 3 description',
-      status: 'done',
-      severity: 'high',
-      created: new Date()
-    }
-  ]
-  bugs: BugType[] = this.dummyData
+  bugs: BugType[] = []
 
-  constructor() { }
+  constructor() {
+    API.get('BugsApi', '/bugs', {}).then(res => {
+      console.log(res);
+      this.bugs = res.data
+      this.bugs.sort((a, z) => {
+        return a.created.getTime() - z.created.getTime()
+      })
+    })
+  }
 
   ngOnInit(): void {
   }
 
-  onBugDelete(bug: BugType) {
-    console.log(bug);
+  onSubmit() {
+    window.location.href = ''
+  }
 
+  onBugDelete(bug: BugType) {
+    API.del('BugsApi', `/bugs/${bug.id}`, {}).then(res => {
+      console.log(res);
+      this.bugs = this.bugs.filter(b => b.id !== bug.id)
+    })
   }
 
 }

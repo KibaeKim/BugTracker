@@ -15,7 +15,7 @@
       "function": {
         "BugTracker": {
           "deploymentBucketName": "amplify-bugtracker-dev-152117-deployment",
-          "s3Key": "amplify-builds/BugTracker-324e526d327075773051-build.zip"
+          "s3Key": "amplify-builds/BugTracker-5976674637646366766a-build.zip"
         }
       }
     }

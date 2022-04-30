@@ -1,4 +1,7 @@
 <div class="container">
+  <div class="my-3">
+    <app-bug-form (onSubmitEvent)="onSubmit()"></app-bug-form>
+  </div>
   <div class="mt-3" *ngFor="let bug of bugs">
     <app-bug [bug]="bug" (onDelete)="onBugDelete($event)"></app-bug>
   </div>
