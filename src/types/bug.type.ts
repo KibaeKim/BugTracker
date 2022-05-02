@@ -5,4 +5,5 @@ export type BugType = {
   priority: "low" | "medium" | "high";
   created: any;
   description: string;
+  readableDate: string | null;
 }

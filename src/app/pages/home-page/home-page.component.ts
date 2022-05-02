@@ -18,7 +18,7 @@ export class HomePageComponent implements OnInit {
         return a.created - z.created
       })
       this.bugs.map(bug => {
-        bug.created = new Date(bug.created).toDateString()
+        bug.readableDate = new Date(bug.created).toDateString()
       })
     })
 

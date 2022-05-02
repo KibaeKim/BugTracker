@@ -17,7 +17,8 @@ export class BugFormComponent implements OnInit {
     description: '',
     status: 'open',
     priority: 'low',
-    created: new Date()
+    created: new Date(),
+    readableDate: null
   }
 
   // Event for when form is submitted

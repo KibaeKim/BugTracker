@@ -15,7 +15,8 @@ export class BugComponent implements OnInit, AfterViewInit {
     description: 'Bug 1 description',
     status: 'open',
     priority: 'low',
-    created: new Date()
+    created: new Date(),
+    readableDate: null
   }
 
   @Input()
@@ -78,7 +79,6 @@ export class BugComponent implements OnInit, AfterViewInit {
   }
 
   constructor() {
-    this.setCss();
     console.log(this.bug);
   }
 
