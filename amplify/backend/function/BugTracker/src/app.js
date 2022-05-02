@@ -25,7 +25,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-const base_params = { TableName: "BugsTable-main" };
+const base_params = { TableName: "BugsTable-dev" };
 
 const generateId = () => {
   return Date.now().toString(36) + Math.random().toString(36).substring(2);
